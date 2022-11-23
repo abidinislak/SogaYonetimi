@@ -1,7 +1,7 @@
 package com.abidinislak.sogaManagement.repository;
 
 import com.abidinislak.sogaManagement.model.User;
-import com.abidinislak.sogaManagement.model.modelUtil.testReturn;
+import com.abidinislak.sogaManagement.model.modelUtil.UserList;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -9,20 +9,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Short> {
+public interface UserRepository extends JpaRepository<User, Integer> {
 
     User findByUserName(String username);
 
-
-//    select soga.user.user_name,sum(soga.payment.amount) ,sum(soga.dues.amount)
-//    FROM soga.user
-//    left join soga.payment on soga.user.id=soga.payment.user_id
-//    left join soga.dues on soga.user.id=soga.dues.user_id
-//
-//    group by soga.user.user_name
-
-
-    @Query(value = "   select soga.user.user_name  as aaa,sum(soga.payment.amount) as bbb,sum(soga.dues.amount) as ccc FROM soga.user left join soga.payment on soga.user.id=soga.payment.user_id    left join soga.dues on soga.user.id=soga.dues.user_id group by soga.user.user_name", nativeQuery = true)
-    List<testReturn> getUserListWithWverthing();
+    @Query(value = "   select soga.user.user_name  as userNumber,soga.user.person_name  as username,sum(soga.payment.amount) as payments,sum(soga.dues.amount) as dues FROM soga.user left join soga.payment on soga.user.id=soga.payment.user_id    left join soga.dues on soga.user.id=soga.dues.user_id \n" +
+            "   group by soga.user.user_name,soga.user.person_name", nativeQuery = true)
+    List<UserList> getUserListWithWverthing();
 }
 

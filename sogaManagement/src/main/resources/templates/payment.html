@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeLeaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css">
+
+    <link rel="styLesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css">
+    <script th:src="@{/webjars/jquery/jquery.min.js}" type="text/javascript"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" type="text/javascript"></script>
+</head>
+<body>
+<div>
+    <div class="container" >
+<div th:replace="fragments :: navbar"></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div>
+        <form  th:object="${user}" >
+            <div class="form-group">
+                <label for="userName">Daire Numarası</label>
+                <input type="text"  th:field="*{userName}" class="form-control" id="userName" aria-describedby="emailHelp" placeholder="Enter email" disabled  >
+            </div>
+            <div class="form-group">
+                <label for="personelName">İsim</label>
+                <input type="text"   th:field="*{personName}" class="form-control" id="personelName" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <label for="personelastName">Soy isim</label>
+                <input type="text" class="form-control"   th:field="*{personLastName}" id="personelastName" >
+            </div>
+
+            <div class="form-group">
+                <label for="passWord">Parola</label>
+                <input type="text"   id="passWord" class="form-control" Th:field="*{password}" >
+            </div>
+
+
+            <button type="button"   id="formUpdateButton" class="btn btn-primary">Hesabımı Güncelle</button>
+        </form>
+
+
+
+    </div>
+
+
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <h1>Ödemelerim</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td><span th:text="${user.userNumber}"> Title </span></td>
+            <td><span th:text="${user.userName}"> Title </span></td>
+            <td><span th:text="${user.payments}"> Title </span></td>
+            <td><span th:text="${user.dues}"> Title </span></td>
+            <td><a class="btn btn-primary" th:href="@{'/payment/'+${user.userNumber}" type="button">ödeme gir</a>
+                <a class="btn btn-secondary" type="button">Borç gir</a>
+                <a class="btn btn-success" type="button">güncelle</a>
+                <a class="btn btn-danger" type="button">Danger</a>
+                <a class="btn btn-warning" type="button">Warning</a></td>
+
+        </tr>
+
+        </tbody>
+    </table>
+ <h1>Aidatalrım</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">First</th>
+            <th scope="col">Last</th>
+            <th scope="col">Handle</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td><span th:text="${user.userNumber}"> Title </span></td>
+            <td><span th:text="${user.userName}"> Title </span></td>
+            <td><span th:text="${user.payments}"> Title </span></td>
+            <td><span th:text="${user.dues}"> Title </span></td>
+            <td><a class="btn btn-primary" th:href="@{'/payment/'+${user.userNumber}" type="button">ödeme gir</a>
+                <a class="btn btn-secondary" type="button">Borç gir</a>
+                <a class="btn btn-success" type="button">güncelle</a>
+                <a class="btn btn-danger" type="button">Danger</a>
+                <a class="btn btn-warning" type="button">Warning</a></td>
+
+        </tr>
+
+        </tbody>
+    </table>
+
+
+</div>
+</div>
+
+</div>
+
+
+<script type="text/javascript" th:src="@{/js/payment.js}"></script>
+
+</body>
+</html>

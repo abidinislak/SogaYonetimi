@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.persistence.EntityManager;
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -23,11 +24,24 @@ public class PaymentRepositoryTest {
     @Autowired
     EntityManager entityManager;
 
+
+    @Test
+    public void findByUSerNameTest() {
+
+
+        List<Payment> tempTest = repo.findByUser(1);
+
+        System.err.println(tempTest.size());
+        assertTrue(tempTest.size() > 0);
+
+
+    }
+
     @Test
     public void savePaymentTest() {
 
         Payment temp = new Payment();
-        temp.setAmount(12.5f);
+        temp.setAmount(123123.5f);
         temp.setDiscription("first pamnet");
 
         entityManager.find(User.class, 1);

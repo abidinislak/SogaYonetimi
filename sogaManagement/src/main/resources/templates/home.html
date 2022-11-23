@@ -12,30 +12,13 @@
 </head>
 <body>
 <div class="container">
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-        <div class="container-fluid">
+    <div th:replace="fragments :: navbar"></div>
 
-            <div class="collapse navbar-collapse" id="mynavbar">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/home">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/category">benimsayfam</a>
-                    </li> <li class="nav-item">
-                        <a class="nav-link" href="/category">Şehit Polis Özgür Gencer Kimdir?</a>
-                    </li>
-
-
-            </div>
-        </div>
-    </nav>
-
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -46,21 +29,21 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>
-                <button type="button" class="btn btn-primary">ödeme gir</button>
-                <button type="button" class="btn btn-secondary">Borç gir</button>
-                <button type="button" class="btn btn-success">güncelle</button>
-                <button type="button" class="btn btn-danger">Danger</button>
-                <button type="button" class="btn btn-warning">Warning</button></td>
+        <tr th:each="user : ${users}">
+            <td><span th:text="${user.userNumber}"> Title </span></td>
+            <td><span th:text="${user.userName}"> Title </span></td>
+            <td><span th:text="${user.payments}"> Title </span></td>
+            <td><span th:text="${user.dues}"> Title </span></td>
+            <td><a class="btn btn-primary" th:href="@{'/payment/'+${user.userNumber}}" type="button">ödeme gir</a>
+                <a class="btn btn-secondary" type="button">Borç gir</a>
+                <a class="btn btn-success" type="button">güncelle</a>
+                <a class="btn btn-danger" type="button">Danger</a>
+                <a class="btn btn-warning" type="button">Warning</a></td>
+
         </tr>
 
         </tbody>
     </table>
-
 
 
 </div>

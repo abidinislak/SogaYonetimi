@@ -14,10 +14,13 @@ import java.util.Date;
 public abstract class BaseEntity {
 
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
+    @CreatedDate
+    private Date CreatedDate;
+    @LastModifiedDate
+    private Date lastModifiedDate;
 
     public int getId() {
         return id;
@@ -43,12 +46,5 @@ public abstract class BaseEntity {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    @CreatedDate
-    private Date CreatedDate;
 
-    @LastModifiedDate
-    private Date lastModifiedDate;
-
-
-    
 }

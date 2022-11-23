@@ -2,7 +2,7 @@ package com.abidinislak.sogaManagement;
 
 import com.abidinislak.sogaManagement.model.Role;
 import com.abidinislak.sogaManagement.model.User;
-import com.abidinislak.sogaManagement.model.modelUtil.testReturn;
+import com.abidinislak.sogaManagement.model.modelUtil.UserList;
 import com.abidinislak.sogaManagement.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,13 +86,13 @@ public class UserTest {
     public void getUserListWithWverthingTest() {
 
 
-        List<testReturn> temp = repo.getUserListWithWverthing();
+        List<UserList> temp = repo.getUserListWithWverthing();
 
 
         for (var obje : temp
         ) {
 
-            System.err.println(obje.getAaa());
+//            System.err.println(obje.getAaa());
 
         }
 
