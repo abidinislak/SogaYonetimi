@@ -6,13 +6,16 @@
 
 $("#formUpdateButton").click(function(){
 
-alert("test ankara");
+
+
+alert($('#userName').val()+","+$('#personelName').val()+","+$('#personelastName').val()+","+$('#passWord').val()+","+$('#userid').val())
 
 var dataObject = {
     'userName': $('#userName').val(),
     'personName': $('#personelName').val(),
     'personLastName': $('#personelastName').val(),
-    'password': $('#passWord').val()
+    'password': $('#passWord').val(),
+    'id' : $('#userid').val()
 };
 
 

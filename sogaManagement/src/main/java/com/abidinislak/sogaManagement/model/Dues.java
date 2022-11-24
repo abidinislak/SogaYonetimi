@@ -22,7 +22,7 @@ public class Dues extends BaseEntity {
     private float amount;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
     private User user;
 
 
