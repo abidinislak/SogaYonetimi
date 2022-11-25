@@ -3,6 +3,7 @@ package com.abidinislak.sogaManagement.model;
 import com.abidinislak.sogaManagement.model.modelUtil.BaseEntity;
 import org.hibernate.envers.Audited;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -25,6 +26,7 @@ public class Payment extends BaseEntity {
     private User user;
 
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date payDay;
 
     public String getDiscription() {

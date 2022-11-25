@@ -20,4 +20,9 @@ public class PaymentService {
 
         return repository.findByUser(username);
     }
+
+    public Payment save(Payment payment) {
+        return  repository.save(payment) ;
+
+    }
 }

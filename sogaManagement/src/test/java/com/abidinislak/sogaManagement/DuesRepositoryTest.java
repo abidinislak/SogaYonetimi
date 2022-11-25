@@ -32,7 +32,7 @@ public class DuesRepositoryTest {
         Dues temp = new Dues();
 
         temp.setDiscription("testing");
-        temp.setAmount(234.234f);
+        temp.setAmount(3453);
         temp.setUser(entityManager.find(User.class, 1));
         temp.setDuesPayDay(new Date());
 
