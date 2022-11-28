@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -35,6 +36,21 @@ public class RoleRepositoryTest {
 
         assertTrue(temRole.getId() > 0 || temRole2.getId() > 0);
 
+
+    }
+
+
+    @Test
+    public void findAllTest() {
+
+        var list = (List<Role>) repo.findAll();
+
+        for (var role :
+                list) {
+            System.err.println(role.getRoleName());
+
+        }
+        assertTrue(list.size() > 0);
 
     }
 }

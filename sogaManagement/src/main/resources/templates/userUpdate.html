@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeLeaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css">
+
+    <link rel="styLesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css">
+    <link rel="styLesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" type="text/css">
+
+    <script th:src="@{/webjars/jquery/jquery.min.js}" type="text/javascript"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" type="text/javascript"></script>
+</head>
+<body>
+<div>
+    <div class="container" >
+        <div th:replace="fragments :: navbar"></div>
+        <div>
+            <form      th:action="@{/updateUser}"  method="post"   th:object="${user}" >
+
+
+                <input type="hidden"  th:field="*{id}" >
+
+
+                <input  type="hidden"  th:field="*{id}"   id="userid" >
+                <div class="form-group">
+                    <label for="userName">Daire Numarası</label>
+                    <input type="text"  th:field="*{userName}" class="form-control" id="userName" aria-describedby="emailHelp" readonly  >
+                </div>
+                <div class="form-group">
+                    <label for="personelName">İsim</label>
+                    <input type="text"   th:field="*{personName}" class="form-control" id="personelName" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <label for="personelastName">Soy isim</label>
+                    <input type="text" class="form-control"   th:field="*{personLastName}" id="personelastName" >
+                </div>
+
+                                <div class="form-group">
+                    <label for="personelastName">Kullanıcı Rolü</label>
+
+                                    <select  th:field="*{roles}" >
+
+                                        <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.roleName}"></option>
+                                    </select>
+
+
+
+                </div>
+
+
+
+
+                <div class="form-group">
+                    <label for="passWord">Parola</label>
+                    <input type="text"   id="passWord" class="form-control" Th:field="*{password}" >
+                </div>
+
+
+                <button type="submit"   id="updateUser" class="btn btn-primary">Hesabımı Güncelle</button>
+            </form>
+
+
+
+        </div>
+
+
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <h1>Ödemelerim</h1>
+        <table class="table table-striped" id="table1" >
+            <thead>
+            <tr>
+                <th scope="col">Ödeme tarihi</th>
+                <th scope="col">Miktarı</th>
+                <th scope="col">Açıklama</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="pay : ${paylist}">
+                <td><span th:text="${pay.payDay}"> Title </span></td>
+                <td><span th:text="${pay.amount}"> Title </span></td>
+                <td><span th:text="${pay.discription}"> Title </span></td>
+
+
+            </tr>
+
+            </tbody>
+        </table>
+        <input type="number"  disabled  th:value="${totalPay}" >
+            <h1>Aidatlarım </h1>
+        <table class="table table-striped" id="paymentstable"   >
+            <thead>
+            <tr>
+                <th scope="col">Aidat tarihi</th>
+                <th scope="col">Miktarı</th>
+                <th scope="col">Açıklama</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="due : ${duesList}">
+                <td><span th:text="${due.duesPayDay}"> Title </span></td>
+                <td><span th:text="${due.amount}"> Title </span></td>
+                <td><span th:text="${due.discription}"> Title </span></td>
+
+
+            </tr>
+
+            </tbody>
+        </table>
+
+
+        <input type="number"  disabled  th:value="${totalDues}" >
+
+
+    </div>
+</div>
+
+</div>
+
+
+<script type="text/javascript" th:src="@{/js/payment.js}"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
+</body>
+</html>

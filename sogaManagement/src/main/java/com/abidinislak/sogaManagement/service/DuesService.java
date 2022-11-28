@@ -21,6 +21,14 @@ public class DuesService {
     }
 
 
+    public Dues save(Dues dues) {
+
+
+        return repo.save(dues);
+
+
+    }
+
 //    public List<Dues> findByUSerName(Integer username) {
 //
 //
