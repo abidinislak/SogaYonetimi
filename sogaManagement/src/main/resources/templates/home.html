@@ -34,9 +34,10 @@
             <td><span th:text="${user.userName}"> Title </span></td>
             <td><span th:text="${user.payments}"> Title </span></td>
             <td><span th:text="${user.dues}"> Title </span></td>
-            <td><a class="btn btn-primary" th:href="@{'/payment/'+${user.userNumber}}" type="button">ödeme gir</a>
-                <a class="btn btn-secondary" type="button">Borç gir</a>
-                <a class="btn btn-success" type="button">güncelle</a>
+            <td><a class="btn btn-success" th:href="@{'/payment/'+${user.userNumber}}" type="button">Ödeme gir</a>
+                <a class="btn btn-danger" th:href="@{'/dues/'+${user.userNumber}}" type="button">Aidat gir</a>
+                <a class="btn btn-success" th:href="@{'/userUpdate/'+${user.userNumber}}" type="button">Kullanıcı
+                    Güncelle</a>
                 <a class="btn btn-danger" type="button">Danger</a>
                 <a class="btn btn-warning" type="button">Warning</a></td>
 
