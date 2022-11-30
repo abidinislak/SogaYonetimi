@@ -1,6 +1,8 @@
 package com.abidinislak.sogaManagement.controller;
 
 
+import com.abidinislak.sogaManagement.Util.MultipleDues;
+import com.abidinislak.sogaManagement.Util.MultiplePayment;
 import com.abidinislak.sogaManagement.model.Dues;
 import com.abidinislak.sogaManagement.model.Payment;
 import com.abidinislak.sogaManagement.model.User;
@@ -13,12 +15,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -40,13 +40,6 @@ public class HomeController {
 
         model.addAttribute("users", userService.getUserListWithWverthing());
 
-
-        for (var user : userService.getUserListWithWverthing()
-        ) {
-
-
-            System.err.println(user.getUserNumber() + "," + user.getUserName() + "," + user.getPayments() + "," + user.getDues());
-        }
 
         return "home";
     }
@@ -159,4 +152,77 @@ public class HomeController {
 
     }
 
+
+    @PostMapping("/multipleDuesSave")
+
+    public String multipleDuesSave(MultipleDues multipleDues) {
+
+        List<User> userList = userService.findAll();
+
+
+        List<Dues> duesList = new ArrayList<>();
+
+        for (var user :
+                userList) {
+            Dues sigleDues = new Dues();
+            sigleDues.setDuesPayDay(multipleDues.getDuesPayDay());
+            sigleDues.setAmount(multipleDues.getAmount());
+            sigleDues.setDiscription(multipleDues.getDiscription());
+            sigleDues.setUser(user);
+            duesList.add(sigleDues);
+        }
+
+        duesService.saveMultipleDues(duesList);
+        return "redirect:/home";
+    }
+
+    @PostMapping("/multiplePaymentSave")
+
+    public String multiplePaymentSave(MultiplePayment multiplePayment) {
+
+        List<User> userList = userService.findAll();
+
+
+        List<Payment> paymentList = new ArrayList<>();
+
+        for (var user :
+                userList) {
+            Payment siglePayment = new Payment();
+            siglePayment.setPayDay(multiplePayment.getPayDay());
+            siglePayment.setAmount(multiplePayment.getAmount());
+            siglePayment.setDiscription(multiplePayment.getDiscription());
+            siglePayment.setUser(user);
+            paymentList.add(siglePayment);
+        }
+
+        paymentService.saveMultipleDues(paymentList);
+        return "redirect:/home";
+    }
+
+    @GetMapping("/management")
+    public String management(Model model) {
+
+        model.addAttribute("multipleDues", new MultipleDues());
+        model.addAttribute("multiplePayment", new MultiplePayment());
+
+
+        return "management";
+    }
+
+
+    @GetMapping("/archive")
+
+    public String archive() {
+
+
+        return "archive";
+    }
+
+    @GetMapping("/ozgurGencer")
+    public String ozgurGencer() {
+
+
+        return "ozgurGencer";
+
+    }
 }

@@ -14,7 +14,11 @@ public interface UserList {
 
     String getUserName();
 
+    String getLastName();
+
     String getPayments();
 
     String getDues();
+
+    String getBalance();
 }

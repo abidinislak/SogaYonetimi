@@ -22,7 +22,16 @@ public class PaymentService {
     }
 
     public Payment save(Payment payment) {
-        return  repository.save(payment) ;
+        return repository.save(payment);
 
+    }
+
+
+    public Boolean saveMultipleDues(List<Payment> payments) {
+
+
+        repository.saveAll(payments);
+
+        return true;
     }
 }
