@@ -15,6 +15,7 @@ public class DuesService {
     @Autowired
     DuesRepository repo;
 
+
     public List<Dues> findByUSerName(Integer id) {
 
         return repo.findByUser(id);
@@ -29,6 +30,11 @@ public class DuesService {
 
     }
 
+
+    public Boolean saveMultipleDues(List<Dues> duesList) {
+        repo.saveAll(duesList);
+        return true;
+    }
 //    public List<Dues> findByUSerName(Integer username) {
 //
 //

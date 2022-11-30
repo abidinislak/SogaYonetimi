@@ -15,6 +15,12 @@ public class UserService {
     UserRepository repo;
 
 
+    public List<User> findAll() {
+
+
+        return repo.findAll();
+    }
+
     public User findByUserName(String username) {
 
 
