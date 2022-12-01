@@ -1,13 +1,9 @@
-//$(document).ready(function(){
-//
-//
-//
-//});
+
 $(document).ready(function () {
 
 //    $('#paymentstable').DataTable();
 //    $('#table1').DataTable();
-
+alert("tabel1");
 $('#table1').DataTable( {
         dom: 'Bfrtip',
         buttons: [
