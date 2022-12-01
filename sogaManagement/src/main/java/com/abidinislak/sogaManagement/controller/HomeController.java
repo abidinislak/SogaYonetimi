@@ -77,13 +77,13 @@ public class HomeController {
 
 
         }
-
-
-        model.addAttribute("user", userService.findByUserName(username));
         model.addAttribute("paylist", paylist);
         model.addAttribute("duesList", duesList);
         model.addAttribute("totalDues", totalDues);
         model.addAttribute("totalPay", totalPay);
+
+
+        model.addAttribute("user", userService.findByUserName(username));
 
         return "user";
     }
@@ -122,6 +122,38 @@ public class HomeController {
 
     public String getUserUpdate(@PathVariable(name = "id") String username, Model model) {
         User user = userService.findByUserName(username);
+
+
+
+
+
+        List<Payment> paylist = paymentService.findByUSerName(userService.findByUserName(username).getId());
+
+        float totalPay = 0;
+
+        for (var pay : paylist
+        ) {
+            totalPay += pay.getAmount();
+
+
+        }
+
+        List<Dues> duesList = duesService.findByUSerName(userService.findByUserName(username).getId());
+        float totalDues = 0;
+
+        for (var paydues : duesList
+        ) {
+            totalDues += paydues.getAmount();
+
+
+        }
+        model.addAttribute("paylist", paylist);
+        model.addAttribute("duesList", duesList);
+        model.addAttribute("totalDues", totalDues);
+        model.addAttribute("totalPay", totalPay);
+
+
+
         model.addAttribute("user", user);
 
         model.addAttribute("roles", roleService.findAll());

@@ -4,15 +4,43 @@
     <meta charset="UTF-8">
     <title>Title</title>
 
+    <style>
+.sinir {
+   margin: auto;
+   width: 75% !important;
+}
+</style>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css">
 
     <link rel="styLesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css">
     <link rel="styLesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" type="text/css">
+    <link rel="styLesheet" href="https://cdn.datatables.net/buttons/2.3.2/css/buttons.dataTables.min.css" type="text/css">
+
+
+
+
+
+
+
+
+
+
 
     <script th:src="@{/webjars/jquery/jquery.min.js}" type="text/javascript"></script>
     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" type="text/javascript"></script>
+<!--  beginnig of exprot to excell section  -->
+    <script src="https://code.jquery.com/jquery-3.5.1.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js" type="text/javascript"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js" type="text/javascript"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js" type="text/javascript"></script>
+<!--end of expocrt toexcell-->
 </head>
 <body>
+
 <div>
     <div class="container" >
         <div th:replace="fragments :: navbar"></div>
@@ -49,12 +77,18 @@
 
 
         <br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/>
+
+
+
+
+
+<div class="sinir" >
         <h1>Ödemelerim</h1>
-        <table class="table table-striped" id="table1" >
+
+
+
+
+        <table class="table table-striped table-responsive table-bordered border-dark"  id="table1" >
             <thead>
             <tr>
                 <th scope="col">Ödeme tarihi</th>
@@ -74,8 +108,8 @@
             </tbody>
         </table>
         <input type="number"  disabled  th:value="${totalPay}" >
-            <h1>Aidatlarım </h1>
-        <table class="table table-striped" id="paymentstable"   >
+            <h1>Aidatlarım </h1></div>
+        <table class="table table-striped table-bordered" id="paymentstable"   >
             <thead>
             <tr>
                 <th scope="col">Aidat tarihi</th>
@@ -96,7 +130,12 @@
         </table>
 
 
+        <div>
+
         <input type="number"  disabled  th:value="${totalDues}" >
+
+        </div>
+
 
 
     </div>
@@ -106,7 +145,8 @@
 
 
 <script type="text/javascript" th:src="@{/js/payment.js}"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<!--<script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>-->
+
 
 </body>
 </html>
