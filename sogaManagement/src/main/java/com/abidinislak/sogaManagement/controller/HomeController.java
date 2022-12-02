@@ -4,18 +4,17 @@ package com.abidinislak.sogaManagement.controller;
 import com.abidinislak.sogaManagement.Util.MultipleDues;
 import com.abidinislak.sogaManagement.Util.MultiplePayment;
 import com.abidinislak.sogaManagement.model.Dues;
+import com.abidinislak.sogaManagement.model.Expense;
 import com.abidinislak.sogaManagement.model.Payment;
 import com.abidinislak.sogaManagement.model.User;
-import com.abidinislak.sogaManagement.service.DuesService;
-import com.abidinislak.sogaManagement.service.PaymentService;
-import com.abidinislak.sogaManagement.service.RoleService;
-import com.abidinislak.sogaManagement.service.UserService;
+import com.abidinislak.sogaManagement.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
@@ -35,11 +34,14 @@ public class HomeController {
     DuesService duesService;
 
 
+    @Autowired
+    ExpenseService expenseService;
+
     @GetMapping("/home")
     public String home(Model model) {
 
         model.addAttribute("users", userService.getUserListWithWverthing());
-
+model.addAttribute("expenses",expenseService.findAll());
 
         return "home";
     }
@@ -208,6 +210,20 @@ public class HomeController {
         return "redirect:/home";
     }
 
+
+
+    @PostMapping("/saveExpense")
+    public String saveExpense(Expense expense , RedirectAttributes redirectAttributes){
+
+               redirectAttributes.addFlashAttribute(       "message","Gider kaydedildi");
+
+        expenseService.save(expense);
+        return "redirect:/home";
+
+
+    }
+
+
     @PostMapping("/multiplePaymentSave")
 
     public String multiplePaymentSave(MultiplePayment multiplePayment) {
@@ -236,7 +252,7 @@ public class HomeController {
 
         model.addAttribute("multipleDues", new MultipleDues());
         model.addAttribute("multiplePayment", new MultiplePayment());
-
+model.addAttribute("expense",new Expense());
 
         return "management";
     }

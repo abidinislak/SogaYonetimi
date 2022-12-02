@@ -23,7 +23,39 @@
     <br/>
     <br/>
     <br/>
+    <div>
+        <form      th:action="@{/saveExpense}"  method="post"   th:object="${expense}" >
+
+
+            <div class="form-group">
+                <label for="dateDues">İşlem Zamanı</label>
+                <input class="form-control" id="dateDues"  th:field="*{date}" type="date">
+            </div>
+
+            <div class="form-group">
+                <label for="amountExpense">Gider Miktarı  </label>
+                <input id="amountExpense"  pattern="[0-9]+([\.,][0-9]+)?" step="0.01" th:field="*{amount}"
+                       title="This should be a number with up to 2 decimal places."
+                       type="number">
+
+            </div>
+            <div class="form-group">
+                <label for="descrition">Aidat Açıklaması</label>
+                <input id="descrition" th:field="*{descrition}" type="text">
+
+            </div>
+
+
+            <button type="submit"   id="saveExpenceButton" class="btn btn-primary">Gider Kaydet</button>
+        </form>
+
+
+
+    </div>
+
+
     <h1>Toplu Aidat git</h1>
+
 
 
     <!--
