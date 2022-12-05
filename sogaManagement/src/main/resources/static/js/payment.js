@@ -13,6 +13,16 @@ $('#table1').DataTable( {
                 ]
     } );
 
+$('#paymentstable').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+                    'copyHtml5',
+                    'excelHtml5',
+                    'csvHtml5',
+                    'pdfHtml5'
+                ]
+    } );
+
 
 
 });
@@ -21,6 +31,10 @@ $('#table1').DataTable( {
 
 
 $("#formUpdateButton").click(function(){
+
+
+
+
 var dataObject = {
     'userName': $('#userName').val(),
     'personName': $('#personelName').val(),
@@ -36,13 +50,11 @@ $.ajax({
     contentType: 'application/json',
     data:JSON.stringify(dataObject),
     dataType: 'json',
-    success: function (data) {
-    		                 alert("oldu")
-    		             },
-    		             error: function (e) {
-    		             alert("olamdı");
-    		             }
-});
+
+
+}).done(function() {
+    alert("qweqweqwe");
+  });;
 
 });
 

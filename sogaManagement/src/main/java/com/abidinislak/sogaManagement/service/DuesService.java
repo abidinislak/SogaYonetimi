@@ -35,6 +35,11 @@ public class DuesService {
         repo.saveAll(duesList);
         return true;
     }
+
+    public List<Dues> findAll() {
+
+        return repo.findAll();
+    }
 //    public List<Dues> findByUSerName(Integer username) {
 //
 //

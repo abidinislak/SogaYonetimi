@@ -1,14 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeLeaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+<head    th:replace="fragments :: head"  >
 
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css">
-
-    <link rel="styLesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" type="text/css">
-    <script th:src="@{/webjars/jquery/jquery.min.js}" type="text/javascript"></script>
-    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" type="text/javascript"></script>
 </head>
 <body>
 <div class="container">
@@ -16,10 +9,40 @@
     <div th:replace="fragments :: navbar"></div>
 
 
+
     <h1>Yapılan tüm ödemeler</h1>
+
+    <table class="table table-striped"     id="tablePayments"  >
+        <thead>
+        <tr>
+            <th scope="col">Daire Numarası</th>
+            <th scope="col">Açıklama</th>
+            <th scope="col">Miktarı</th>
+            <th scope="col">Tarih</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="payment : ${payments}">
+            <td><span th:text="${payment.user.userName}">  </span></td>
+            <td><span th:text="${payment.discription}">  </span></td>
+            <td><span th:text="${payment.amount}">  </span></td>
+            <td><span th:text="${payment.payDay}">  </span></td>
+
+        </tr>
+
+        </tbody>
+    </table>
+
+
+
+
     <h2>Yapılan tüm aidatlar</h2>
 
 </div>
 
 </body>
+
+<script th:src="@{/js/archive.js}"></script>
+
+
 </html>

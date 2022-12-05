@@ -121,14 +121,8 @@ model.addAttribute("expenses",expenseService.findAll());
 
     @GetMapping("/userUpdate/{id}")
 
-
     public String getUserUpdate(@PathVariable(name = "id") String username, Model model) {
         User user = userService.findByUserName(username);
-
-
-
-
-
         List<Payment> paylist = paymentService.findByUSerName(userService.findByUserName(username).getId());
 
         float totalPay = 0;
@@ -173,9 +167,11 @@ model.addAttribute("expenses",expenseService.findAll());
     }
 
 
-    //    @PostMapping("/userUpdate")
-    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
-    public String updateUSer(User user) {
+//        @PostMapping("/userUpdateMamagament")
+    @RequestMapping(value = "/userUpdateMamagament", method = RequestMethod.POST)
+    public String updateUSer(  User user, RedirectAttributes redirectAttributes){
+
+        redirectAttributes.addFlashAttribute(       "message","Kullanıc güncelleme İşlemei başarılı");
 
         User temp = userService.save(user);
         if (temp != null && temp.getId() > 0) {
@@ -260,7 +256,12 @@ model.addAttribute("expense",new Expense());
 
     @GetMapping("/archive")
 
-    public String archive() {
+    public String archive(Model model) {
+
+
+        model.addAttribute("dues",duesService.findAll());
+        model.addAttribute("payments",paymentService.findAll());
+        model.addAttribute("expenses",expenseService.findAll());
 
 
         return "archive";

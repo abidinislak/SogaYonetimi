@@ -7,7 +7,7 @@
     <div class="container" >
         <div th:replace="fragments :: navbar"></div>
         <div>
-            <form      th:action="@{/updateUser}"  method="post"   th:object="${user}" >
+            <form      th:action="@{/userUpdateMamagament}"  method="post"   th:object="${user}" >
 
 
                 <input type="hidden"  th:field="*{id}" >
@@ -113,7 +113,7 @@
 </div>
 
 
-<script type="text/javascript" th:src="@{/js/payment.js}"></script>
+<script type="text/javascript" th:src="@{/js/userUpdate.js}"></script>
 <!--<script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>-->
 
 </body>

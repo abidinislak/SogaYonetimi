@@ -34,4 +34,8 @@ public class PaymentService {
 
         return true;
     }
+
+    public List<Payment> findAll() {
+        return repository.findAll();
+    }
 }
