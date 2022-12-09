@@ -19,6 +19,11 @@
 
 
         <div class="card-body">
+
+
+            <div class="card">
+
+                <div class="card-body">
             <form  th:object="${user}" >
 
 
@@ -40,10 +45,72 @@
                     <label for="passWord">Parola</label>
                     <input type="text"   id="passWord" class="form-control" Th:field="*{password}" >
                 </div>
-
+<br/>
 
                 <button type="button"   id="formUpdateButton" class="btn btn-primary">Hesabımı Güncelle</button>
             </form>
+
+                </div>
+
+            </div>
+
+
+            <br/>
+            <br/>
+            <div class="card">
+                <div class="card-header">
+
+
+                    <div>
+                        <p>Telefon numaralarım</p>
+
+                    </div>
+
+                </div>
+
+                <div class="card-body">
+
+
+                    <div class="row">
+
+                        <div class="form-group">
+
+                        <input    type="text"  name="phoneNumber"  id="phoneNumber" >
+
+                        <button type="button"  id="phoneNumberAdd" class="btn btn-primary" >Ekle</button>
+                        </div>
+                    </div>
+
+<div class="row">
+
+                    <h6>telefon numralarım</h6>
+
+                    <table class="table table-striped table-responsive table-bordered border-dark"  id="tablephonenumber" >
+                        <thead>
+                        <tr>
+                            <th scope="col">Telefon Numarası</th>
+                            <th scope="col">İşlemler</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="phone : ${user.phone}">
+                            <td><span th:text="${phone.phoneNumber}"></span></td>
+                            <td>
+                                <a class="btn btn-danger" th:href="@{'/deletePhone/'+${phone.id}}">Telefon numarasını sil </a>
+                            </td>
+
+
+                        </tr>
+                        </tbody>
+                    </table>
+</div>
+                </div>
+
+
+            </div>
+
+
+
         </div>
     </div>
 

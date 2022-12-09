@@ -38,4 +38,10 @@ public class UserService {
     public User save(User user) {
         return repo.save(user);
     }
+
+    public User findByid(Integer userid) {
+
+        return repo.findById(userid).get();
+
+    }
 }

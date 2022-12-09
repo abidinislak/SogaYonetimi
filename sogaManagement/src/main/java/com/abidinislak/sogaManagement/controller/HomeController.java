@@ -32,7 +32,8 @@ public class HomeController {
     PaymentService paymentService;
     @Autowired
     DuesService duesService;
-
+@Autowired
+PhoneServise phoneServise;
 
     @Autowired
     ExpenseService expenseService;
@@ -84,7 +85,6 @@ model.addAttribute("expenses",expenseService.findAll());
         model.addAttribute("totalDues", totalDues);
         model.addAttribute("totalPay", totalPay);
 
-
         model.addAttribute("user", userService.findByUserName(username));
 
         return "user";
@@ -119,6 +119,20 @@ model.addAttribute("expenses",expenseService.findAll());
         return "payment";
     }
 
+
+
+    @GetMapping("/deletePhone/{id}")
+
+
+    public String phoneDelete(@PathVariable(name = "id") Integer phoneId)
+    {
+
+
+
+        phoneServise.delete(phoneId);
+
+return "redirect:/userPage";
+    }
     @GetMapping("/userUpdate/{id}")
 
     public String getUserUpdate(@PathVariable(name = "id") String username, Model model) {

@@ -1,8 +1,10 @@
 package com.abidinislak.sogaManagement;
 
+import com.abidinislak.sogaManagement.model.Phone;
 import com.abidinislak.sogaManagement.model.Role;
 import com.abidinislak.sogaManagement.model.User;
 import com.abidinislak.sogaManagement.model.modelUtil.UserList;
+import com.abidinislak.sogaManagement.repository.PhoneRepository;
 import com.abidinislak.sogaManagement.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,10 @@ public class UserTest {
 
     @Autowired
     UserRepository repo;
+
+
+    @Autowired
+    PhoneRepository repoPhone;
 
 
     @Autowired
@@ -97,4 +103,58 @@ public class UserTest {
         }
 
     }
+
+@Test
+public void saveUserWithPhoneNumber(){
+
+
+        User user=repo.findById(1).get();
+
+
+
+        Phone temp=new Phone("sdqwd");
+        temp.setUser(user);
+
+var tempPhone=repoPhone.save(temp);
+
+user.addPhone(tempPhone);
+
+
+        repo.save(user);
+
+
+assertTrue(user.getPhone().size()>0);
+
+
+
+
+
+
+
+
+
+
+}
+
+
+@Test
+
+    public void listPhoneTest(){
+
+        var user=repo.findById(1);
+
+
+    for (var phone :
+            user.get().getPhone()) {
+        System.err.println(phone);
+    }
+
+        assertTrue(user.get().getPhone().size()>0);
+
+
+
+
+}
+
+
 }

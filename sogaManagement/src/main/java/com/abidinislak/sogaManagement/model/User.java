@@ -18,6 +18,33 @@ public class User extends BaseEntity {
 
 
     private String password;
+
+
+    public Set<Phone> getPhone() {
+        return phone;
+    }
+
+
+    public void addPhone(Phone phone)
+    {
+
+
+        this.phone.add(phone);
+
+    }
+    public void setPhone(Set<Phone> phone) {
+        this.phone = phone;
+    }
+
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+    private Set<Phone> phone;
+
+
+
+
+
+
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles", joinColumns = {
             @JoinColumn(name = "user_id", referencedColumnName = "id")
