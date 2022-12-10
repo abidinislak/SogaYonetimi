@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeLeaf.org" >
+<head  th:replace="fragments :: head" >
+</head>
+<body>
+
+
+<div class="container">
+
+    <div  th:replace="fragments :: navbar" ></div>
+
+    <br/>
+
+    <div class="card">
+
+        <div class="card-header">
+
+            Bina Araç Listesi
+
+
+        </div>
+
+
+
+        <div class="card-body">
+
+
+
+            <table class="table">
+
+                <thead>
+
+
+                <tr>
+
+                    <th  scope="col" >Daire Numarsaı</th>
+                    <th  scope="col" >İsim & Soyisim</th>
+                    <th  scope="col" >Telefon Numarası</th>
+                    <th  scope="col" >Plaka</th>
+
+                </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                <tr   th:each="asd : ${userCar}" >
+                    <td><span  th:text="${asd.userName}" ></span> </td>
+                    <td><span  th:text="${asd.nameAndLastName}" ></span> </td>
+                    <td><span  th:text="${asd.phones}" ></span> </td>
+                    <td><span  th:text="${asd.carPlate}" ></span> </td>
+
+
+
+
+                </tr>
+
+
+                </tbody>
+
+            </table>
+
+
+
+        </div>
+
+
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -60,6 +60,35 @@ window.location.replace("http://localhost:8080/userPage");
 				});
 });
 
+$("#plateNumberAdd").click(function(){
+
+var valueA=$("#plate").val();
+var valueB=$("#userid").val();
+	url = "/saveUserPlate";
+		csrfValue = $("input[name='_csrf']").val();
+params = {
+
+plateNumber : valueA,
+userid : valueB,
+			_csrf : csrfValue
+		};
+$.post(
+	url,
+	params,
+	function(response)
+	 {
+			if (response == "oldu") {
+window.location.replace("http://localhost:8080/userPage");
+				}
+		else if (response == "hata") {
+
+								alert("OPPPS.. Something wrong");
+							}
+						}).fail(function() {
+							alert("Oppss..  Something wrong and we dont know why, please conatct admin");
+				});
+});
+
 
 
 

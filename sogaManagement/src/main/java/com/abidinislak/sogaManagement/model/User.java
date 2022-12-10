@@ -39,11 +39,16 @@ public class User extends BaseEntity {
     @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     private Set<Phone> phone;
 
+@OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
+private Set<CarPlate> carPlate;
 
+    public Set<CarPlate> getCarPlate() {
+        return carPlate;
+    }
 
-
-
-
+    public void setCarPlate(Set<CarPlate> carPlate) {
+        this.carPlate = carPlate;
+    }
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles", joinColumns = {

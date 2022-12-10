@@ -3,6 +3,7 @@ package com.abidinislak.sogaManagement.controller;
 
 import com.abidinislak.sogaManagement.Util.MultipleDues;
 import com.abidinislak.sogaManagement.Util.MultiplePayment;
+import com.abidinislak.sogaManagement.Util.UserCar;
 import com.abidinislak.sogaManagement.model.Dues;
 import com.abidinislak.sogaManagement.model.Expense;
 import com.abidinislak.sogaManagement.model.Payment;
@@ -32,6 +33,12 @@ public class HomeController {
     PaymentService paymentService;
     @Autowired
     DuesService duesService;
+
+
+    @Autowired
+    CarPlateServise carPlateServise;
+
+
 @Autowired
 PhoneServise phoneServise;
 
@@ -87,6 +94,7 @@ model.addAttribute("expenses",expenseService.findAll());
 
         model.addAttribute("user", userService.findByUserName(username));
 
+
         return "user";
     }
 
@@ -133,6 +141,21 @@ model.addAttribute("expenses",expenseService.findAll());
 
 return "redirect:/userPage";
     }
+
+
+
+
+    @GetMapping("/deleteCarPlate/{id}")
+
+    public String deleteCarPlate(@PathVariable(name = "id") Integer carPlateId){
+
+
+
+        carPlateServise.deleteById(carPlateId);
+return "redirect:/userPage";
+    }
+
+
     @GetMapping("/userUpdate/{id}")
 
     public String getUserUpdate(@PathVariable(name = "id") String username, Model model) {
@@ -267,6 +290,56 @@ model.addAttribute("expense",new Expense());
         return "management";
     }
 
+
+
+    @GetMapping("/phones")
+    public String allPhones( Model model   ){
+
+
+
+        var list=userService.findAll();
+
+List<UserCar> userList=new ArrayList<>();
+        for (var user :
+                list) {
+
+
+            for (var plate :
+                    user.getCarPlate()) {
+
+                var userCar=new UserCar();
+                userCar.setCarPlate(plate.getPlate());
+                userCar.setUserName(user.getUserName());
+                userCar.setNameAndLastName(user.getPersonName()+","+user.getPersonLastName());
+
+
+
+                for (var phone :
+                        user.getPhone()) {
+                    userCar.addPhone(phone.getPhoneNumber());
+                }
+                
+                
+                
+                
+                
+userList.add(userCar);
+
+            }
+
+
+
+
+        }
+
+
+
+model.addAttribute("userCar",userList);
+
+        model.addAttribute("users",userService.findAll());
+
+        return null;
+    }
 
     @GetMapping("/archive")
 
