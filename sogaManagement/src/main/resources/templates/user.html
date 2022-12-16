@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeLeaf.org">
-<head  th:replace="fragments :: head" >
+<head th:replace="fragments :: head">
 
 </head>
 <body>
 <div class="container">
 
 
-        <div th:replace="fragments :: navbar"></div>
+    <div th:replace="fragments :: navbar"></div>
 
-<br/>
+    <br/>
     <div class="card">
 
         <div class="card-header">
-            <h1>Kişsel Bilgilerim</h1>
+            Kişsel Bilgilerim
 
         </div>
 
@@ -24,31 +24,33 @@
             <div class="card">
 
                 <div class="card-body">
-            <form  th:object="${user}" >
+                    <form th:object="${user}">
 
 
-                <input  type="hidden"  th:field="*{id}"   id="userid" >
-                <div class="form-group">
-                    <label for="userName">Daire Numarası</label>
-                    <input type="text"  th:field="*{userName}" class="form-control" id="userName" aria-describedby="emailHelp" disabled  >
-                </div>
-                <div class="form-group">
-                    <label for="personelName">İsim</label>
-                    <input type="text"   th:field="*{personName}" class="form-control" id="personelName" placeholder="Password">
-                </div>
-                <div class="form-group">
-                    <label for="personelastName">Soy isim</label>
-                    <input type="text" class="form-control"   th:field="*{personLastName}" id="personelastName" >
-                </div>
+                        <input type="hidden" th:field="*{id}" id="userid">
+                        <div class="form-group">
+                            <label for="userName">Daire Numarası</label>
+                            <input type="text" th:field="*{userName}" class="form-control" id="userName"
+                                   aria-describedby="emailHelp" disabled>
+                        </div>
+                        <div class="form-group">
+                            <label for="personelName">İsim</label>
+                            <input type="text" th:field="*{personName}" class="form-control" id="personelName"
+                                   placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <label for="personelastName">Soy isim</label>
+                            <input type="text" class="form-control" th:field="*{personLastName}" id="personelastName">
+                        </div>
 
-                <div class="form-group">
-                    <label for="passWord">Parola</label>
-                    <input type="text"   id="passWord" class="form-control" Th:field="*{password}" >
-                </div>
-<br/>
+                        <div class="form-group">
+                            <label for="passWord">Parola</label>
+                            <input type="text" id="passWord" class="form-control" Th:field="*{password}">
+                        </div>
+                        <br/>
 
-                <button type="button"   id="formUpdateButton" class="btn btn-primary">Hesabımı Güncelle</button>
-            </form>
+                        <button type="button" id="formUpdateButton" class="btn btn-primary">Hesabımı Güncelle</button>
+                    </form>
 
                 </div>
 
@@ -75,36 +77,38 @@
                     <div class="row">
 
                         <div class="form-group">
+                            <span>Yeni telefon Numarası</span>
+                            <input type="text" name="phoneNumber" id="phoneNumber">
 
-                        <input    type="text"  name="phoneNumber"  id="phoneNumber" >
-
-                        <button type="button"  id="phoneNumberAdd" class="btn btn-primary" >Ekle</button>
+                            <button type="button" id="phoneNumberAdd" class="btn btn-primary">Ekle</button>
                         </div>
                     </div>
 
-<div class="row">
+                    <div class="row">
+                        <br/>
+                        <br/>
+                        <span></span>
+                        <table class="table table-striped table-responsive table-bordered border-dark"
+                               id="tablephonenumber">
+                            <thead>
+                            <tr>
+                                <th scope="col">Telefon Numarası</th>
+                                <th scope="col">İşlemler</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="phone : ${user.phone}">
+                                <td><span th:text="${phone.phoneNumber}"></span></td>
+                                <td>
+                                    <a class="btn btn-danger" th:href="@{'/deletePhone/'+${phone.id}}">Telefon
+                                        numarasını sil </a>
+                                </td>
 
-                    <h6>telefon numralarım</h6>
 
-                    <table class="table table-striped table-responsive table-bordered border-dark"  id="tablephonenumber" >
-                        <thead>
-                        <tr>
-                            <th scope="col">Telefon Numarası</th>
-                            <th scope="col">İşlemler</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="phone : ${user.phone}">
-                            <td><span th:text="${phone.phoneNumber}"></span></td>
-                            <td>
-                                <a class="btn btn-danger" th:href="@{'/deletePhone/'+${phone.id}}">Telefon numarasını sil </a>
-                            </td>
-
-
-                        </tr>
-                        </tbody>
-                    </table>
-</div>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
 
@@ -118,11 +122,9 @@
             <div class="card">
 
 
-
                 <div class="card-header">
 
-                    Araç ekle
-
+                    <p>Araç Plakalarım</p>
 
                 </div>
                 <div class="card-body">
@@ -130,116 +132,118 @@
                     <div class="row">
 
                         <div class="form-group">
+                            <span>Yeni Araç Plakası</span>
 
-                            <input    type="text"    id="plate" >
+                            <input type="text" id="plate">
 
-                            <button type="button"  id="plateNumberAdd" class="btn btn-primary" >Ekle</button>
+                            <button type="button" id="plateNumberAdd" class="btn btn-primary">Ekle</button>
                         </div>
                     </div>
+                    <div class="row">
+                        <span></span><br/><br/>
+                        <table class="table table-striped table-responsive table-bordered border-dark"
+                               id="tableCarPlates">
+                            <thead>
+                            <tr>
+                                <th scope="col">Araç Plakası Numarası</th>
+                                <th scope="col">İşlemler</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="carPlate : ${user.carPlate}">
+                                <td><span th:text="${carPlate.plate}"></span></td>
+                                <td>
+                                    <a class="btn btn-danger"
+                                       th:href="@{'/deleteCarPlate/'+${carPlate.id}}">Aracısil </a>
+                                </td>
 
 
-
-                    Araçlarım
-                    <table class="table table-striped table-responsive table-bordered border-dark"  id="tableCarPlates" >
-                        <thead>
-                        <tr>
-                            <th scope="col">Araç Plakası Numarası</th>
-                            <th scope="col">İşlemler</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr th:each="carPlate : ${user.carPlate}">
-                            <td><span th:text="${carPlate.plate}"></span></td>
-                            <td>
-                                <a class="btn btn-danger" th:href="@{'/deleteCarPlate/'+${carPlate.id}}">Aracısil </a>
-                            </td>
+                            </tr>
+                            </tbody>
+                        </table>
 
 
-                        </tr>
-                        </tbody>
-                    </table>
-
-
-
-                    </table>
+                    </div>
 
 
                 </div>
             </div>
 
 
-
-
         </div>
     </div>
 
 
+    <br/>
 
 
-        <br/>
+    <div class="card">
+        <div class="card-header">
+            Ödemelerim
+        </div>
+        <div class="card-body">
+            <table class="table table-striped table-responsive table-bordered border-dark" id="table1">
+                <thead>
+                <tr>
+                    <th scope="col">Ödeme tarihi</th>
+                    <th scope="col">Miktarı</th>
+                    <th scope="col">Açıklama</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="pay : ${paylist}">
+                    <td><span th:text="${pay.payDay}"> Title </span></td>
+                    <td><span th:text="${pay.amount}"> Title </span></td>
+                    <td><span th:text="${pay.discription}"> Title </span></td>
+                </tr>
+                </tbody>
+            </table>
 
-
-
-        <div class="card">
-            <div class="card-header">
-                <h1>Ödemelerim</h1>
-            </div>
-            <div class="card-body">
-                <table class="table table-striped table-responsive table-bordered border-dark"  id="table1" >
-                    <thead>
-                    <tr>
-                        <th scope="col">Ödeme tarihi</th>
-                        <th scope="col">Miktarı</th>
-                        <th scope="col">Açıklama</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="pay : ${paylist}">
-                        <td><span th:text="${pay.payDay}"> Title </span></td>
-                        <td><span th:text="${pay.amount}"> Title </span></td>
-                        <td><span th:text="${pay.discription}"> Title </span></td>
-                    </tr>
-                    </tbody>
-                </table>
-                <input type="number"  disabled  th:value="${totalPay}" >
-            </div>
-</div>
-
-<br/>
-<br/>
-        <div class="card">
-            <div class="card-header">
-                <h1>Aidatlarım </h1>
-            </div>
-            <div class="card-body">
-                <table class="table table-striped table-bordered" id="paymentstable"   >
-                    <thead>
-                    <tr>
-                        <th scope="col">Aidat tarihi</th>
-                        <th scope="col">Miktarı</th>
-                        <th scope="col">Açıklama</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="due : ${duesList}">
-                        <td><span th:text="${due.duesPayDay}"> Title </span></td>
-                        <td><span th:text="${due.amount}"> Title </span></td>
-                        <td><span th:text="${due.discription}"> Title </span></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-
-
-
+            <div class="row text-center">
+<div class="col">
+            <span>Toplam Ödemelerim</span  > &nbsp;&nbsp;<span   th:text="${totalPay}" ></span>
+</div></div>
 
         </div>
+    </div>
 
-<br/>
+    <br/>
+    <br/>
+    <div class="card">
+        <div class="card-header">
+            Aidatlarım
+        </div>
+        <div class="card-body">
+            <table class="table table-striped table-bordered" id="paymentstable">
+                <thead>
+                <tr>
+                    <th scope="col">Aidat tarihi</th>
+                    <th scope="col">Miktarı</th>
+                    <th scope="col">Açıklama</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="due : ${duesList}">
+                    <td><span th:text="${due.duesPayDay}"> Title </span></td>
+                    <td><span th:text="${due.amount}"> Title </span></td>
+                    <td><span th:text="${due.discription}"> Title </span></td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="row text-center">
+                <div class="col">
+                    <span>Toplam Ödemelerim</span  > &nbsp;&nbsp;<span   th:text="${totalPay}" ></span>
+                </div></div>
+        </div>
 
 
+    </div>
 
-<script type="text/javascript" th:src="@{/js/payment.js}"></script>
+    <br/>
+
+
+    <script type="text/javascript" th:src="@{/js/payment.js}"></script>
 
 </div>
 </body>

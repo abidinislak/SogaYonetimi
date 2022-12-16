@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="trace">
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MMM-dd hh:mm:ss a} %level %c - %m %n" />
+        </Console>
+        <JDBC name="dbLogsStore" tableName="soga.EVENT_LOGS">
+            <ConnectionFactory class="com.abidinislak.sogaManagement.Util.ConnectionFactory" method="getDatabaseConnection" />
+            <Column name="ID" pattern="%u" />
+            <Column name="DATE_TIME" isEventTimestamp="true" />
+            <Column name="CLASS_INFO" pattern="%logger" />
+            <Column name="LEVEL" pattern="%level" />
+            <Column name="MESSAGE" pattern="%message" isClob="true" />
+            <Column name="EXCEPTION_INFO" pattern="%ex{full}" isClob="true" />
+        </JDBC>
+    </Appenders>
+    <Loggers>
+        <Logger name="com.angular" level="trace">
+            <AppenderRef ref="Console" />
+        </Logger>
+        <Root level="warn">
+            <AppenderRef ref="dbLogsStore" />
+        </Root>
+    </Loggers>
+</Configuration>

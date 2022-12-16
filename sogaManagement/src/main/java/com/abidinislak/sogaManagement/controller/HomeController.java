@@ -20,10 +20,13 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Controller
 public class HomeController {
 
+    private static final Logger logger = LogManager.getLogger(HomeController.class);
 
     @Autowired
     UserService userService;
@@ -39,8 +42,8 @@ public class HomeController {
     CarPlateServise carPlateServise;
 
 
-@Autowired
-PhoneServise phoneServise;
+    @Autowired
+    PhoneServise phoneServise;
 
     @Autowired
     ExpenseService expenseService;
@@ -48,9 +51,23 @@ PhoneServise phoneServise;
     @GetMapping("/home")
     public String home(Model model) {
 
-        model.addAttribute("users", userService.getUserListWithWverthing());
-model.addAttribute("expenses",expenseService.findAll());
+        logger.info("home a girdei");
+        logger.debug("home a girdei");
+        logger.warn("home a girdei");
+        logger.trace("home a girdei");
+        logger.error("home a girdei");
 
+
+
+
+        var userList = userService.getUserListWithWverthing();
+        var expenseList = expenseService.findAll();
+        var allPaymets = userService.getUserListWithWverthing().stream().mapToDouble(x -> x.getPayments()).sum();
+        model.addAttribute("allPaymnets", userList.stream().mapToDouble(x -> x.getPayments()).sum());
+        model.addAttribute("allDues", userList.stream().mapToDouble(x -> x.getDues()).sum());
+        model.addAttribute("users", userList);
+        model.addAttribute("expenses", expenseList);
+        model.addAttribute("expensesSum", expenseList.stream().mapToDouble(x -> x.getAmount()).sum());
         return "home";
     }
 
@@ -67,30 +84,21 @@ model.addAttribute("expenses",expenseService.findAll());
         }
 
 
+
         List<Payment> paylist = paymentService.findByUSerName(userService.findByUserName(username).getId());
-
-        float totalPay = 0;
-
-        for (var pay : paylist
-        ) {
-            totalPay += pay.getAmount();
-
-
-        }
 
         List<Dues> duesList = duesService.findByUSerName(userService.findByUserName(username).getId());
         float totalDues = 0;
 
-        for (var paydues : duesList
-        ) {
+        for (var paydues : duesList) {
             totalDues += paydues.getAmount();
 
 
         }
         model.addAttribute("paylist", paylist);
         model.addAttribute("duesList", duesList);
-        model.addAttribute("totalDues", totalDues);
-        model.addAttribute("totalPay", totalPay);
+        model.addAttribute("totalDues", duesList.stream().mapToDouble(x -> x.getAmount()).sum());
+        model.addAttribute("totalPay", paylist.stream().mapToDouble(x -> x.getAmount()).sum());
 
         model.addAttribute("user", userService.findByUserName(username));
 
@@ -118,8 +126,6 @@ model.addAttribute("expenses",expenseService.findAll());
     }
 
     @GetMapping("/payment/{id}")
-
-
     public String getPayment(@PathVariable(name = "id") String username, Model model) {
         Payment payment = new Payment();
         payment.setUser(userService.findByUserName(username));
@@ -128,31 +134,21 @@ model.addAttribute("expenses",expenseService.findAll());
     }
 
 
-
     @GetMapping("/deletePhone/{id}")
-
-
-    public String phoneDelete(@PathVariable(name = "id") Integer phoneId)
-    {
-
-
-
+    public String phoneDelete(@PathVariable(name = "id") Integer phoneId) {
         phoneServise.delete(phoneId);
 
-return "redirect:/userPage";
+        return "redirect:/userPage";
     }
-
-
 
 
     @GetMapping("/deleteCarPlate/{id}")
 
-    public String deleteCarPlate(@PathVariable(name = "id") Integer carPlateId){
-
+    public String deleteCarPlate(@PathVariable(name = "id") Integer carPlateId) {
 
 
         carPlateServise.deleteById(carPlateId);
-return "redirect:/userPage";
+        return "redirect:/userPage";
     }
 
 
@@ -164,8 +160,7 @@ return "redirect:/userPage";
 
         float totalPay = 0;
 
-        for (var pay : paylist
-        ) {
+        for (var pay : paylist) {
             totalPay += pay.getAmount();
 
 
@@ -174,8 +169,7 @@ return "redirect:/userPage";
         List<Dues> duesList = duesService.findByUSerName(userService.findByUserName(username).getId());
         float totalDues = 0;
 
-        for (var paydues : duesList
-        ) {
+        for (var paydues : duesList) {
             totalDues += paydues.getAmount();
 
 
@@ -184,7 +178,6 @@ return "redirect:/userPage";
         model.addAttribute("duesList", duesList);
         model.addAttribute("totalDues", totalDues);
         model.addAttribute("totalPay", totalPay);
-
 
 
         model.addAttribute("user", user);
@@ -204,11 +197,13 @@ return "redirect:/userPage";
     }
 
 
-//        @PostMapping("/userUpdateMamagament")
+    //        @PostMapping("/userUpdateMamagament")
     @RequestMapping(value = "/userUpdateMamagament", method = RequestMethod.POST)
-    public String updateUSer(  User user, RedirectAttributes redirectAttributes){
+    public String updateUSer(User user, RedirectAttributes redirectAttributes) {
 
-        redirectAttributes.addFlashAttribute(       "message","Kullanıc güncelleme İşlemei başarılı");
+        redirectAttributes.addFlashAttribute("message", "Kullanıc güncelleme İşlemei başarılı");
+
+        user.setPersonLastName(user.getPersonLastName().toUpperCase());
 
         User temp = userService.save(user);
         if (temp != null && temp.getId() > 0) {
@@ -229,8 +224,7 @@ return "redirect:/userPage";
 
         List<Dues> duesList = new ArrayList<>();
 
-        for (var user :
-                userList) {
+        for (var user : userList) {
             Dues sigleDues = new Dues();
             sigleDues.setDuesPayDay(multipleDues.getDuesPayDay());
             sigleDues.setAmount(multipleDues.getAmount());
@@ -244,11 +238,10 @@ return "redirect:/userPage";
     }
 
 
-
     @PostMapping("/saveExpense")
-    public String saveExpense(Expense expense , RedirectAttributes redirectAttributes){
+    public String saveExpense(Expense expense, RedirectAttributes redirectAttributes) {
 
-               redirectAttributes.addFlashAttribute(       "message","Gider kaydedildi");
+        redirectAttributes.addFlashAttribute("message", "Gider kaydedildi");
 
         expenseService.save(expense);
         return "redirect:/home";
@@ -266,8 +259,7 @@ return "redirect:/userPage";
 
         List<Payment> paymentList = new ArrayList<>();
 
-        for (var user :
-                userList) {
+        for (var user : userList) {
             Payment siglePayment = new Payment();
             siglePayment.setPayDay(multiplePayment.getPayDay());
             siglePayment.setAmount(multiplePayment.getAmount());
@@ -285,58 +277,46 @@ return "redirect:/userPage";
 
         model.addAttribute("multipleDues", new MultipleDues());
         model.addAttribute("multiplePayment", new MultiplePayment());
-model.addAttribute("expense",new Expense());
+        model.addAttribute("expense", new Expense());
 
         return "management";
     }
 
 
-
     @GetMapping("/phones")
-    public String allPhones( Model model   ){
+    public String allPhones(Model model) {
 
 
+        var list = userService.findAll();
 
-        var list=userService.findAll();
-
-List<UserCar> userList=new ArrayList<>();
-        for (var user :
-                list) {
+        List<UserCar> userList = new ArrayList<>();
+        for (var user : list) {
 
 
-            for (var plate :
-                    user.getCarPlate()) {
+            for (var plate : user.getCarPlate()) {
 
-                var userCar=new UserCar();
+                var userCar = new UserCar();
                 userCar.setCarPlate(plate.getPlate());
                 userCar.setUserName(user.getUserName());
-                userCar.setNameAndLastName(user.getPersonName()+","+user.getPersonLastName());
+                userCar.setNameAndLastName(user.getPersonName() + "," + user.getPersonLastName());
 
 
-
-                for (var phone :
-                        user.getPhone()) {
+                for (var phone : user.getPhone()) {
                     userCar.addPhone(phone.getPhoneNumber());
                 }
-                
-                
-                
-                
-                
-userList.add(userCar);
+
+
+                userList.add(userCar);
 
             }
-
-
 
 
         }
 
 
+        model.addAttribute("userCar", userList);
 
-model.addAttribute("userCar",userList);
-
-        model.addAttribute("users",userService.findAll());
+        model.addAttribute("users", userService.findAll());
 
         return null;
     }
@@ -346,9 +326,9 @@ model.addAttribute("userCar",userList);
     public String archive(Model model) {
 
 
-        model.addAttribute("dues",duesService.findAll());
-        model.addAttribute("payments",paymentService.findAll());
-        model.addAttribute("expenses",expenseService.findAll());
+        model.addAttribute("dues", duesService.findAll());
+        model.addAttribute("payments", paymentService.findAll());
+        model.addAttribute("expenses", expenseService.findAll());
 
 
         return "archive";

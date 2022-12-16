@@ -2,23 +2,31 @@ package com.abidinislak.sogaManagement.model.modelUtil;
 
 public interface UserList {
 
+
+//    String getUserNumber();
 //
-//    String getAaa();
+//    String getUserName();
 //
-//    float getBbb();
+//    String getLastName();
 //
-//    float getCcc();
+//    String getPayments();
+//
+//    String getDues();
+//
+//    String getBalance();
 
 
+
+//    trying....
     String getUserNumber();
 
     String getUserName();
 
     String getLastName();
 
-    String getPayments();
+    float getPayments();
 
-    String getDues();
+    float getDues();
 
-    String getBalance();
+    float getBalance();
 }

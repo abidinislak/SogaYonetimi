@@ -24,6 +24,9 @@ public class RestHomeController {
     @RequestMapping(value = "/userUpdate", method = RequestMethod.POST)
     public String updateUSer( @RequestBody User user) {
 
+
+        user.setPersonLastName(user.getPersonLastName().toUpperCase());
+
         User temp = userService.save(user);
         if (temp != null && temp.getId() > 0) {
 

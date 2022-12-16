@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Configuration
 @EnableJpaRepositories
 @ComponentScan
+@ComponentScan(basePackages ={"com.abidinislak.sogaManagement.*"})
 public class SogaManagementApplication {
 
     public static void main(String[] args) {
