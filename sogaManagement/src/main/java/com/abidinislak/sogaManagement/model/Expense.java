@@ -25,10 +25,19 @@ public class Expense extends BaseEntity {
     private String descrition;
 
     private float amount;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+
 
     private Date date;
 
+    private byte [] content;
+
+    public byte[] getContent() {
+        return content;
+    }
+
+    public void setContent(byte[] content) {
+        this.content = content;
+    }
 
     public String getDescrition() {
         return descrition;

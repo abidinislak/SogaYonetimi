@@ -15,10 +15,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -51,11 +57,6 @@ public class HomeController {
     @GetMapping("/home")
     public String home(Model model) {
 
-        logger.info("home a girdei");
-        logger.debug("home a girdei");
-        logger.warn("home a girdei");
-        logger.trace("home a girdei");
-        logger.error("home a girdei");
 
 
 
@@ -239,15 +240,56 @@ public class HomeController {
 
 
     @PostMapping("/saveExpense")
-    public String saveExpense(Expense expense, RedirectAttributes redirectAttributes) {
+    public String saveExpense(@RequestParam(name = "doc") MultipartFile multipartFile, @RequestParam(name = "amount") float amount, @RequestParam(name = "aciklama") String aciklama, @RequestParam(name = "date") String date, RedirectAttributes redirectAttributes) {
+        System.err.println(amount+","+aciklama);
 
         redirectAttributes.addFlashAttribute("message", "Gider kaydedildi");
 
-        expenseService.save(expense);
+
+        Expense expense=new Expense();
+        expense.setAmount(amount);
+        expense.setDescrition(aciklama);
+
+        System.err.println(date);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date parsed = format.parse(date);
+            System.err.println("******* "+  parsed);
+            expense.setDate(parsed);
+            expense.setContent(multipartFile.getBytes());
+
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+
+            logger.error(e.getMessage()+"...............");
+            throw new RuntimeException(e);
+        }
+
+        try {
+            expenseService.save(expense);
+
+        }
+        catch (Exception exception)
+        {
+            logger
+                    .error(exception.getMessage());
+        }
+
         return "redirect:/home";
 
 
     }
+//    @PostMapping("/saveExpense")
+//    public String saveExpense(Expense expense, RedirectAttributes redirectAttributes) {
+//
+//        redirectAttributes.addFlashAttribute("message", "Gider kaydedildi");
+//
+//        expenseService.save(expense);
+//        return "redirect:/home";
+//
+//
+//    }
 
 
     @PostMapping("/multiplePaymentSave")
