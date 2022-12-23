@@ -9,7 +9,10 @@ import com.abidinislak.sogaManagement.model.Expense;
 import com.abidinislak.sogaManagement.model.Payment;
 import com.abidinislak.sogaManagement.model.User;
 import com.abidinislak.sogaManagement.service.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -19,15 +22,15 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.util.Optional;
 
 @Controller
 public class HomeController {
@@ -58,9 +61,6 @@ public class HomeController {
     public String home(Model model) {
 
 
-
-
-
         var userList = userService.getUserListWithWverthing();
         var expenseList = expenseService.findAll();
         var allPaymets = userService.getUserListWithWverthing().stream().mapToDouble(x -> x.getPayments()).sum();
@@ -83,7 +83,6 @@ public class HomeController {
         } else {
             username = principal.toString();
         }
-
 
 
         List<Payment> paylist = paymentService.findByUSerName(userService.findByUserName(username).getId());
@@ -241,55 +240,76 @@ public class HomeController {
 
     @PostMapping("/saveExpense")
     public String saveExpense(@RequestParam(name = "doc") MultipartFile multipartFile, @RequestParam(name = "amount") float amount, @RequestParam(name = "aciklama") String aciklama, @RequestParam(name = "date") String date, RedirectAttributes redirectAttributes) {
-        System.err.println(amount+","+aciklama);
 
         redirectAttributes.addFlashAttribute("message", "Gider kaydedildi");
 
 
-        Expense expense=new Expense();
+        Expense expense = new Expense();
         expense.setAmount(amount);
         expense.setDescrition(aciklama);
-
-        System.err.println(date);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            Date parsed = format.parse(date);
-            System.err.println("******* "+  parsed);
-            expense.setDate(parsed);
+            System.err.println(multipartFile.getBytes().length);
+
+
+            if(!multipartFile.isEmpty())
             expense.setContent(multipartFile.getBytes());
 
-        } catch (ParseException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
-
-            logger.error(e.getMessage()+"...............");
             throw new RuntimeException(e);
         }
 
+
+        if (!date.isBlank()) {
+
+
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                Date parsed = format.parse(date);
+                System.err.println("******* " + parsed);
+                expense.setDate(parsed);
+
+
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+        }
         try {
             expenseService.save(expense);
 
-        }
-        catch (Exception exception)
-        {
-            logger
-                    .error(exception.getMessage());
+        } catch (Exception exception) {
+            logger.error(exception.getMessage());
         }
 
         return "redirect:/home";
 
 
     }
-//    @PostMapping("/saveExpense")
-//    public String saveExpense(Expense expense, RedirectAttributes redirectAttributes) {
-//
-//        redirectAttributes.addFlashAttribute("message", "Gider kaydedildi");
-//
-//        expenseService.save(expense);
-//        return "redirect:/home";
-//
-//
-//    }
+
+
+    @GetMapping("/downloadExpense")
+    public void downloadExpense(@Param("id") int id, HttpServletResponse response) throws IOException {
+
+        Optional<Expense> expense = expenseService.findByİd(id);
+
+
+        if (!expense.isPresent()) {
+            logger.error("Expense couldnt Find");
+        }
+
+
+        Expense expenseDownload = expense.get();
+
+        response.setContentType("application/octet-stream");
+        String headerkey = "Content-Disposition";
+        String headerValue = "attachment; filename=" + expenseDownload.getDescrition();
+        response.setHeader(headerkey, headerValue);
+        ServletOutputStream servletOutputStream = response.getOutputStream();
+
+        servletOutputStream.write(expenseDownload.getContent());
+        servletOutputStream.close();
+
+
+    }
 
 
     @PostMapping("/multiplePaymentSave")

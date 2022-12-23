@@ -83,6 +83,7 @@
                     <th scope="col">Gider Açıklaması</th>
                     <th scope="col">Miktarı</th>
                     <th scope="col">İşlem  Tarihi</th>
+                    <th scope="col">İşlemler</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -90,6 +91,9 @@
                     <td><span th:text="${expense.descrition}">  </span></td>
                     <td><span th:text="${expense.amount}">  </span></td>
                     <td><span th:text="${expense.date}">  </span></td>
+                    <td>
+
+                        <a   th:if="${expense.content != null}"  th:href="@{'/downloadExpense?id='+${expense.id}}"> Belgeyi İndir </a> </span></td>
                 </tr>
                 </tbody>
             </table>
