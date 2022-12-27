@@ -73,6 +73,13 @@ public class HomeController {
     }
 
 
+    @GetMapping("/login")
+    public String loginPage(){
+
+
+        return "login";
+    }
+
     @GetMapping("userPage")
     public String userPage(Model model) {
 
