@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en"    xmlns:th="http://www.thymeLeaf.org" >
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Soga Yönetim</title>
 
     <style>
-
 html {
   height: 100%;
 }
@@ -81,7 +80,12 @@ body {
   overflow: hidden;
   transition: .5s;
   margin-top: 40px;
-  letter-spacing: 4px
+  letter-spacing: 4px;
+  background-color: Transparent;
+
+
+    cursor:pointer;
+
 }
 
 .login-box button:hover {
@@ -182,20 +186,29 @@ body {
 <body>
 
 
-<div class="login-box">
-    <h2>Şehit Özgür Gencer Aparman Yönetim Sistemi</h2>
-    <form    name='f' action="login" method='POST'>
-        <div class="user-box">
-            <input type='text' name='username' value=''>
-            <label>Kullanıcı Adı</label>
-        </div>
-        <div class="user-box">
-            <input type='password' name='password' />
-            <label>Şifre</label>
-        </div>
-        <input name="submit" type="submit" value="submit" />
-    </form>
-</div>
+<!--<div class="login-box">-->
+<!--    <h2>Şehit Özgür Gencer Aparman Yönetim Sistemi</h2>-->
+<!--    <form name='f' action="login" method='POST'>-->
+
+<!--        <div>-->
+<!--            <input type="text" name="" required="">-->
+<!--            <label>Username</label>-->
+<!--        </div>-->
+<!--        <div class="user-box">-->
+<!--            <input type="password" name="" required="">-->
+<!--            <label>Password</label>-->
+<!--        </div>-->
+
+
+<!--        <button type="submit">-->
+<!--            <span></span>-->
+<!--            <span></span>-->
+<!--            <span></span>-->
+<!--            <span></span>-->
+<!--            Giriş-->
+<!--        </button>-->
+<!--    </form>-->
+<!--</div>-->
 <!--this is spring securtiy default-->
 <!--<form name='f' action="login" method='POST'>-->
 <!--    <table>-->
@@ -214,43 +227,32 @@ body {
 <!--</form>-->
 
 
-
 <!--this is original page-->
 
 <!--https://frontendor.com/blog/10-bootstrap-responsive-login-form/-->
 
-<!--<div class="login-box">-->
-<!--    <h2>Login</h2>-->
-<!--    <form>-->
-<!--        <div class="user-box">-->
-<!--            <input type="text" name="" required="">-->
-<!--            <label>Username</label>-->
-<!--        </div>-->
-<!--        <div class="user-box">-->
-<!--            <input type="password" name="" required="">-->
-<!--            <label>Password</label>-->
-<!--        </div>-->
-<!--        <a href="#">-->
-<!--            <span></span>-->
-<!--            <span></span>-->
-<!--            <span></span>-->
-<!--            <span></span>-->
-<!--            Submit-->
-<!--        </a>-->
-<!--    </form>-->
-<!--</div>-->
+<div class="login-box">
+    <h2>Login</h2>
+    <form   method="post" action="login" >
+        <div class="user-box">
+            <input type="text" name="username" required>
+            <label>Username</label>
+        </div>
+        <div class="user-box">
+            <input type="password" name="password" required>
+            <label>Password</label>
+        </div>
 
-
-
-
-
-
-
-
-
-
-
-
+        <div>
+        <button type="submit">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            Submit
+        </button></div>
+    </form>
+</div>
 
 
 </body>
