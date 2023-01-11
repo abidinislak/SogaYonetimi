@@ -49,7 +49,7 @@ $.post(
 	function(response)
 	 {
 			if (response == "Succes saved") {
-window.location.replace("http://localhost:8080/userPage");
+window.location.replace("/userPage");
 				}
 		else if (response == "hata") {
 
@@ -78,7 +78,7 @@ $.post(
 	function(response)
 	 {
 			if (response == "oldu") {
-window.location.replace("http://localhost:8080/userPage");
+window.location.replace("/userPage");
 				}
 		else if (response == "hata") {
 

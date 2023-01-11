@@ -83,7 +83,7 @@
                 </div>
                 <div class="col">
                     <span class="text-white bg-dark"  > Aidatlar ile Ödemeler Arasındaki  Fark; &nbsp;&nbsp;</span> <span
-                        th:text="${allDues - allPaymnets}  "></span>
+                        th:text="${ allPaymnets - allDues}  "></span>
                 </div>
             </div>
 
@@ -100,12 +100,12 @@
         <div class="card-body">
             <table class="table table-striped table-bordered " id="tableExpense">
                 <thead>
-                <tr>
+                <trdescrition>
                     <th scope="col">Gider Açıklaması</th>
                     <th scope="col">Miktarı</th>
                     <th scope="col">İşlem Tarihi</th>
                     <th scope="col">İşlemler</th>
-                </tr>
+                </trdescrition>
                 </thead>
                 <tbody>
                 <tr th:each="expense : ${expenses}">

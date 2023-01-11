@@ -138,6 +138,17 @@ assertTrue(user.getPhone().size()>0);
 
 
 @Test
+public void findAllUSers(){
+
+
+        var user=repo.findAll();
+
+        assertTrue(user.size()>0);
+
+
+}
+
+@Test
 
     public void listPhoneTest(){
 

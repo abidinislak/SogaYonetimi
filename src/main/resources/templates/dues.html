@@ -14,8 +14,18 @@
 <div class="container">
     <div th:replace="fragments :: navbar"></div>
 
+    <br/>
+    <br/>
+    <br/>
 
-    <div>
+<div class="card">
+
+
+
+    <div class="card-header">Kullanıcı Aidat Girme İşlemi</div>
+
+
+    <div class="card-body">
         <form method="post" th:action="@{/saveDues}" th:object="${dues}">
 
 
@@ -25,31 +35,36 @@
                 <input aria-describedby="emailHelp" class="form-control" disabled id="userName"
                        placeholder="Enter email" th:field="*{user.personName}" type="text">
             </div>
+            <br/>
+            <br/>
             <div class="form-group">
                 <label for="dateDues">İşlem Zamanı</label>
                 <input class="form-control" id="dateDues"  th:field="*{duesPayDay}" type="date">
             </div>
-
+            <br/>
+            <br/>
             <div class="form-group">
                 <label for="amount">Aidat Miktarı </label>
                 <input id="amount" pattern="[0-9]+([\.,][0-9]+)?" step="0.01" th:field="*{amount}"
                        title="This should be a number with up to 2 decimal places."
                        type="number">
 
-            </div>
+            </div> <br/>
+            <br/>
             <div class="form-group">
                 <label for="description">Aidat Açıklaması</label>
                 <input id="description" th:field="*{discription}" type="text">
 
             </div>
-
+            <br/>
+            <br/>
 
             <button class="btn btn-primary" id="duesSave" type="submit">Aidat Kaydet</button>
         </form>
 
-
     </div>
 
+</div>
 
 </div>
 

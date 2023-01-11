@@ -11,51 +11,70 @@
     <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}" type="text/javascript"></script>
 </head>
 <body>
-    <div class="container" >
-<div th:replace="fragments :: navbar"></div>
+<div class="container">
+    <div th:replace="fragments :: navbar"></div>
+
+    <br/>
+    <br/>
+    <br/>
 
 
+    <div class="card">
 
-    <div>
-        <form   th:action="@{/savePayment}"  method="post"    th:object="${payment}" >
+        <div class="card-header">
 
+            <h3>Aidat Ödemesi İşlemleri</h3>
 
-            <input type="hidden" th:field="*{user}" >
-            <div class="form-group">
-                <label for="userName">Ödeme Girilecek Kullanıcı</label>
-                <input type="text"  th:field="*{user.personName}" class="form-control" id="userName" aria-describedby="emailHelp" placeholder="Enter email" disabled  >
-            </div>
-            <div class="form-group">
-                <label for="personelName">İşlem Zamanı</label>
-                <input type="date"   th:field="*{payDay}" class="form-control" id="personelName" placeholder="Password">
-            </div>
+        </div>
 
-            <div class="form-group">
-                <label for="amount">Ödeme Girilecek Kullanıcı</label>
-                <input type="number"    th:field="*{amount}"  id="amount" pattern="[0-9]+([\.,][0-9]+)?" step="0.01"
-                       title="This should be a number with up to 2 decimal places.">
-
-            </div>
-            <div class="form-group">
-                <label for="description">Ödeme Açıklaması</label>
-                <input type="text" id="description"    th:field="*{discription}" >
-
-            </div>
+        <div class="card-body">
+            <form th:action="@{/savePayment}" method="post" th:object="${payment}">
 
 
+                <input type="hidden" th:field="*{user}">
+                <div class="form-group">
+                    <label for="userName">Ödeme Girilecek Kullanıcı</label>
+                    <input type="text" th:field="*{user.personName}" class="form-control" id="userName"
+                           aria-describedby="emailHelp" placeholder="Enter email" disabled>
+                </div>
+                <br/>
+                <br/>
+                <div class="form-group">
+                    <label for="personelName">İşlem Zamanı</label>
+                    <input type="date" th:field="*{payDay}" class="form-control" id="personelName"
+                           placeholder="Password">
+                </div>
+                <br/>
+                <br/>
+
+                <div class="form-group">
+                    <label for="amount">Ödeme Miktarı</label>
+                    <input type="number" th:field="*{amount}" id="amount" pattern="[0-9]+([\.,][0-9]+)?" step="0.01"
+                           title="This should be a number with up to 2 decimal places.">
+
+                </div>
+                <br/>
+                <br/>
+                <div class="form-group">
+                    <label for="description">Ödeme Açıklaması</label>
+                    <input type="text" id="description" th:field="*{discription}">
+
+                </div>
 
 
-            <button type="submit"   id="paymentSave" class="btn btn-primary">Ödemeyi Kaydet</button>
-        </form>
+                <br/>
+                <br/>
 
 
-
+                <button type="submit" id="paymentSave" class="btn btn-primary">Ödemeyi Kaydet</button>
+            </form>
+        </div>
     </div>
-
-
 
 </div>
 
+
+</div>
 
 
 <script type="text/javascript" th:src="@{/js/payment.js}"></script>

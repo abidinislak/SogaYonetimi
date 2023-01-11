@@ -57,15 +57,16 @@ public class HomeController {
     @Autowired
     ExpenseService expenseService;
 
-    @GetMapping("/home")
+    @GetMapping({"/home","/"})
     public String home(Model model) {
 
 
         var userList = userService.getUserListWithWverthing();
         var expenseList = expenseService.findAll();
-        var allPaymets = userService.getUserListWithWverthing().stream().mapToDouble(x -> x.getPayments()).sum();
+//        model.addAttribute("allPaymnets", userList.stream().mapToDouble(s -> s.getPayments()  == 0 ? null:s.getPayments()).filter(x->x>0).sum());
         model.addAttribute("allPaymnets", userList.stream().mapToDouble(x -> x.getPayments()).sum());
-        model.addAttribute("allDues", userList.stream().mapToDouble(x -> x.getDues()).sum());
+//        model.addAttribute("allDues", userList.stream().mapToDouble(s ->  s.getDues()).filter(x->x>0).sum())    ;
+        model.addAttribute("allDues", userList.stream().mapToDouble(x -> x.getDues()).sum())    ;
         model.addAttribute("users", userList);
         model.addAttribute("expenses", expenseList);
         model.addAttribute("expensesSum", expenseList.stream().mapToDouble(x -> x.getAmount()).sum());
